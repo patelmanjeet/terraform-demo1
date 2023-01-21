@@ -17,8 +17,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  terraform-deploy-int-uat:
-    name: Terraform Deploy int/uat
+  terraform:
+    name: Terraform int/uat
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -33,9 +33,10 @@ jobs:
           echo test, and deploy your project.
           echo ${GITHUB_REF}
 
-  terraform-deploy-prod:
+  terraform-prod:
     runs-on: ubuntu-latest
-    name: Terraform Deploy prod
+    name: terraform
+    needs: build
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
