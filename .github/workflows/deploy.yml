@@ -35,8 +35,8 @@ jobs:
 
   terraform-prod:
     runs-on: ubuntu-latest
-    name: terraform
-    needs: build
+    name: Terraform prod
+    needs: terraform
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
