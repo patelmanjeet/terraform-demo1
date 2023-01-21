@@ -36,8 +36,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: echo "TERRAFORM_WORKSPACE=uat" >> $GITHUB_ENV
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+
 
       - name: Terraform Verion
         run: |
