@@ -44,7 +44,8 @@ jobs:
           echo "$AZURE_SUBSCRIPTION_ID"
           echo ${{ env.AZURE_SUBSCRIPTION_ID }}
 
-          printenv
+          printenv >> test.txt
+          cat test.txt
 
       - name: Terraform Init
         run: |
