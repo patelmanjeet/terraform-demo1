@@ -16,22 +16,27 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  TERRAFORM_WORKSPACE: 'dev'
+
 jobs:
+
   terraform:
     name: Terraform int/uat
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run a one-line script
-        if: github.ref == 'refs/heads/"main"'
-        run: echo Hello, world!
+      - name: Set TERRAFORM_WORKSPACE to uat of main
+        if: github.ref == 'refs/heads/main'
+        run: echo "TERRAFORM_WORKSPACE=uat" >> $GITHUB_ENV
 
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
           echo ${GITHUB_REF}
+          echo "${{ env.TERRAFORM_WORKSPACE }}"
 
   terraform-prod:
     runs-on: ubuntu-latest
@@ -40,17 +45,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
 
-      - uses: trstringer/manual-approval@v1
-        with:
-          secret: ${{ github.TOKEN }}
-          minimum-approvals: 1
-          issue-body: "Please approve request to deploy on prod."
-
       - uses: actions/checkout@v3
-
-      - name: Run a one-line script
-        if: github.ref == 'refs/heads/"main"'
-        run: echo Hello, world!
 
       - name: Run a multi-line script
         run: |
