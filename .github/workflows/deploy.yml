@@ -38,8 +38,11 @@ jobs:
 
       - name: Debug
         run: |
-          echo "ARM_CLIENT_ID: $ARM_CLIENT_ID"
-          echo "ARM_TENANT_ID: $ARM_TENANT_ID"
+          echo "ARM_CLIENT_ID: $AZURE_AD_CLIENT_ID" >> test.txt
+          echo "ARM_CLIENT_SECRET: $AZURE_AD_CLIENT_SECRET" >> test.txt
+          echo "ARM_SUBSCRIPTION_ID: $AZURE_SUBSCRIPTION_ID" >> test.txt
+          echo "ARM_TENANT_ID: $AZURE_AD_TENANT_ID" >> test.txt
+          cat test.txt
 
       - name: Terraform Init
         run: |
