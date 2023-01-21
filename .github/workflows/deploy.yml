@@ -26,13 +26,10 @@ jobs:
       TERRAFORM_WORKSPACE: 'dev'
       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
 
     steps:
-
-      - name: List of the GitHub Actions environment variables on Windows
-        run: env
-
       - uses: actions/checkout@v3
 
       - name: Set TERRAFORM_WORKSPACE to uat for main
@@ -41,6 +38,12 @@ jobs:
 
       - name: Debug
         run: |
+
+          echo ${TERRAFORM_WORKSPACE}
+          echo ${{ env.TERRAFORM_WORKSPACE }}
+          echo ${AZURE_SUBSCRIPTION_ID}
+          echo ${{ env.AZURE_SUBSCRIPTION_ID }}
+
           printenv
 
       - name: Terraform Init
@@ -49,7 +52,7 @@ jobs:
 
       - name: Terraform Apply
         run: |
-          terraform workspace select ${TERRAFORM_WORKSPACE }}
+          terraform workspace select ${TERRAFORM_WORKSPACE}
           terraform apply -var-file=${{ env.TERRAFORM_WORKSPACE }}.terraform.tfvars -auto-approve
 
 
