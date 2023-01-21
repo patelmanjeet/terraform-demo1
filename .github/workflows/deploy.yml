@@ -36,17 +36,6 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: echo "TERRAFORM_WORKSPACE=uat" >> $GITHUB_ENV
 
-      - name: Debug
-        run: |
-
-          echo "$TERRAFORM_WORKSPACE"
-          echo ${{ env.TERRAFORM_WORKSPACE }}
-          echo "$AZURE_SUBSCRIPTION_ID"
-          echo ${{ env.AZURE_SUBSCRIPTION_ID }}
-
-          printenv >> test.txt
-          cat test.txt
-
       - name: Terraform Init
         run: |
           terraform init
