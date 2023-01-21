@@ -26,7 +26,6 @@ jobs:
       TERRAFORM_WORKSPACE: 'dev'
       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
 
     steps:
@@ -38,7 +37,11 @@ jobs:
 
       - name: Debug
         run: |
-
+          echo "ARM_CLIENT_ID: ${AZURE_AD_CLIENT_ID }}" >> test.txt
+          echo "ARM_CLIENT_SECRET: ${AZURE_AD_CLIENT_SECRET }}" >> test.txt
+          echo "ARM_SUBSCRIPTION_ID: ${{ $AZURE_SUBSCRIPTION_ID }}"  >> test.txt
+          echo "ARM_TENANT_ID: ${{ $AZURE_AD_TENANT_ID }}" >> test.txt
+          cat test.txt
           printenv
 
       - name: Terraform Init
