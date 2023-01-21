@@ -36,7 +36,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: echo "TERRAFORM_WORKSPACE=uat" >> $GITHUB_ENV
 
-       - name: Terraform Init
+      - name: Debug
         run: |
           echo "ARM_CLIENT_ID: $ARM_CLIENT_ID"
           echo "ARM_TENANT_ID: $ARM_TENANT_ID"
