@@ -39,9 +39,9 @@ jobs:
       - name: Debug
         run: |
 
-          echo ${TERRAFORM_WORKSPACE}
+          echo "$TERRAFORM_WORKSPACE"
           echo ${{ env.TERRAFORM_WORKSPACE }}
-          echo ${AZURE_SUBSCRIPTION_ID}
+          echo "$AZURE_SUBSCRIPTION_ID"
           echo ${{ env.AZURE_SUBSCRIPTION_ID }}
 
           printenv
@@ -52,7 +52,7 @@ jobs:
 
       - name: Terraform Apply
         run: |
-          terraform workspace select ${TERRAFORM_WORKSPACE}
+          terraform workspace select ${{ env.TERRAFORM_WORKSPACE }}
           terraform apply -var-file=${{ env.TERRAFORM_WORKSPACE }}.terraform.tfvars -auto-approve
 
 
