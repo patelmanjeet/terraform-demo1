@@ -20,23 +20,23 @@ env:
   TERRAFORM_WORKSPACE: 'dev'
 
 jobs:
+
   terraform:
     name: Terraform int/uat
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Set TERRAFORM_WORKSPACE to uat of main
+        if: github.ref == 'refs/heads/main'
+        run: echo "TERRAFORM_WORKSPACE=uat" >> $GITHUB_ENV
 
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
           echo ${GITHUB_REF}
-          echo ${TERRAFORM_WORKSPACE}
-          echo ${env.TERRAFORM_WORKSPACE}
-          echo "${{env.TERRAFORM_WORKSPACE}}"
+          echo "${{ env.TERRAFORM_WORKSPACE }}"
 
   terraform-prod:
     runs-on: ubuntu-latest
@@ -46,9 +46,6 @@ jobs:
     steps:
 
       - uses: actions/checkout@v3
-
-      - name: Run a one-line script
-        run: echo Hello, world!
 
       - name: Run a multi-line script
         run: |
