@@ -23,6 +23,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: trstringer/manual-approval@v1
+        name: Wait for approval
+        with:
+          secret: ${{ github.TOKEN }}
+          minimum-approvals: 1
+
       - name: Run a one-line script
         if: github.ref == 'refs/heads/"main"'
         run: echo Hello, world!
@@ -41,10 +47,10 @@ jobs:
     steps:
 
       - uses: trstringer/manual-approval@v1
+        name: Wait for approval
         with:
           secret: ${{ github.TOKEN }}
           minimum-approvals: 1
-          issue-body: "Please approve request to deploy on prod."
 
       - uses: actions/checkout@v3
 
