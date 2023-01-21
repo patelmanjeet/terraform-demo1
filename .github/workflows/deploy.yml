@@ -27,16 +27,24 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set TERRAFORM_WORKSPACE to uat of main
+      - name: Set TERRAFORM_WORKSPACE to uat for main
         if: github.ref == 'refs/heads/main'
         run: echo "TERRAFORM_WORKSPACE=uat" >> $GITHUB_ENV
 
-      - name: Run a multi-line script
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      - name: Terraform Apply
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-          echo ${GITHUB_REF}
-          echo "${{ env.TERRAFORM_WORKSPACE }}"
+          terraform workspace select ${{ env.TERRAFORM_WORKSPACE }}
+          #terraform apply -var-file=dev.terraform.tfvars -auto-approve
+
 
   terraform-prod:
     runs-on: ubuntu-latest
