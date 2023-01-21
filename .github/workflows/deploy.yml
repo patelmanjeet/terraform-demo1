@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Terraform
 
 # Controls when the workflow will run
 on:
@@ -17,9 +17,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  terraform-deploy-int/uat:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run a one-line script
+        if: github.ref == 'refs/heads/"main"'
+        run: echo Hello, world!
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+          echo ${GITHUB_REF}
+
+  terraform-deploy-prod:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/"main"'
     steps:
       - uses: actions/checkout@v3
 
