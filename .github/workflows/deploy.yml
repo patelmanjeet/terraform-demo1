@@ -36,12 +36,6 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: echo "TERRAFORM_WORKSPACE=uat" >> $GITHUB_ENV
 
-
-
-      - name: Terraform Verion
-        run: |
-          terraform --version
-
       - name: Terraform Init
         run: |
           terraform init
